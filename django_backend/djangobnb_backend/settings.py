@@ -1,3 +1,4 @@
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -16,6 +17,27 @@ DEBUG = bool(os.environ.get("DEBUG",default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+AUTH_USER_MODEL = 'useraccount.User'
+
+SITE_ID = 1
+
+WEBSITE_URL = 'http://localhost:8000'
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME":timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME":timedelta(days=7),
+    "ROTATE_REFRESH_TOKEN":False,
+    "BLACKLIST_AFTER_ROTATION":False,
+    "UPDATE_LAST_LOGIN":True,
+    "SIGNING_KEY": "acomplexkey",
+    "ALGORITHM" : "HS512",
+}
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True  
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = None  
 
 # Application definition
 
@@ -26,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'property',
+    'useraccount',
 ]
 
 MIDDLEWARE = [
